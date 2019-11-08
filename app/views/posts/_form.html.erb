@@ -1,3 +1,20 @@
+<head>
+  <style>
+  @font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
+    body{
+      font-family: 'yg-jalnan';
+    }
+   
+    span {
+      font-size: 1.5em;
+      font-family: 'yg-jalnan';
+    }
+    
+  </style>
+  
+</head>
+
+<body>
 <%= form_with(model: post, local: true, url: create_posts_path(current_user.id))  do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
@@ -10,37 +27,51 @@
       </ul>
     </div>
   <% end %>
+   <br/><br/>
 
   <div class="field">
-    <%= form.text_field :name, placeholder: "대화명"%>
+    <span>대화명: </span>
+    <%= form.text_field :name, placeholder: "실명을 입력해주세요"%>
   </div>
+  <br/>
 
   <div class="field">
-    <%= form.label :프로필사진 %>
+    <span>프로필 사진 : </span>
     <%= form.file_field :profile_picture%>
   </div>
+  <br/>
 
   <div class="field">
-    <%= form.label :dateofbirth %>
+    <span>생년월일 : </span>
     <%= form.date_select :dateofbirth, {order: [:year, :month, :day], 
-        prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 15, end_year: Date.today.year - 100}, {required: true} %>
+        prompt: { day: '일', month: '월', year: '년' }, start_year: Date.today.year - 15, end_year: Date.today.year - 100}, {required: true} %>
   </div>
+  <br/>
   
   <div class="field">
+    <span>성별 : </span>
     <%= form.radio_button(:sex, "male", :checked => true ) %>
     <%= label_tag(:age_male, "남자") %>
     <%= form.radio_button(:sex, "female") %>
     <%= label_tag(:age_female, "여자") %>
   </div>
+  <br/>
 
   <div class="field">
-    <%= form.label :간단소개 %>
+    <span>간단 소개 </span><br/>
     <%= form.text_area :content %>
   </div>
-  
+  <br/>
     
-  
+<div class="field">
+<span>거주지:</span> <input type="text" name="home"><br/><br/>
+<span>직업:</span> <input type="text" name="job"><br/><br/>
+<span>직장명:</span> <input type="text" name="workplace"><br/><br/>
+<span>키(cm):</span> <input type="text" name="height"><br/><br/>
+</div>
+    
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "등록" %>
   </div>
 <% end %>
+</body>

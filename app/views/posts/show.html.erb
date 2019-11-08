@@ -1,14 +1,53 @@
+<head>
+  <style>
+  @font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
+    body{
+      font-family: 'yg-jalnan';
+      font-size: 1em;
+    }
+   
+    
+  </style>
+  
+</head>
+
+<body>
+
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>이름:</strong>
-  <%= @post.name %>
-</p>
-<p>
-  <strong>프로필 사진:</strong>
+<strong>이름:</strong>
+  <%= @post.name %><br/><br/>
+
+<strong>프로필 사진</strong><br/><br/>
   <% if @post.profile_picture.attached? %>
-    <%= image_tag(@post.profile_picture, size:'200x200')%>
-  <% end %>
-</p>
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+  <%= image_tag(@post.profile_picture, size:'200x200')%>
+  <% end %><br/><br/>
+
+<strong>생년월일:</strong>
+  <%= @post.dateofbirth %><br/><br/>
+
+<strong>간단 소개:</strong>
+  <%= @post.content %><br/><br/>
+
+<strong>성별:</strong>
+  <%= @post.sex %><br/><br/>
+  
+  <strong>거주지:</strong>
+  <%= @post.home %><br/><br/>
+  
+  <strong>직업:</strong>
+  <%= @post.job %><br/><br/>
+  
+  <strong>직장명:</strong>
+  <%= @post.workplace %><br/><br/>
+  
+  <strong>키(cm):</strong>
+  <%= @post.height %><br/><br/>
+
+
+<button><%= link_to '수정', edit_post_path(@post) %></button>
+<button><%= link_to '뒤로가기', posts_path %></button>
+
+</body>
+

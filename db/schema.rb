@@ -37,7 +37,12 @@ ActiveRecord::Schema.define(version: 2019_11_07_131602) do
     t.string "name"
     t.datetime "dateofbirth"
     t.string "current_user_email"
+    t.text "content"
     t.string "sex"
+    t.string "home"
+    t.string "job"
+    t.string "workplace"
+    t.integer "height"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
