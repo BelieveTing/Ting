@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-
+  
+  get 'friends/be_friend/:id' => 'friends#be_friend', as: :friends
+  
   resources :posts, :except => :create
   post 'posts/:id' => 'posts#create' , as: :create_posts
   devise_for :users
