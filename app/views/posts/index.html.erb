@@ -19,22 +19,34 @@
       <%= link_to '프로필 수정하기', edit_post_path(current_user.id) %><br>
       <hr>
       <h2 id="followers">나에게 친구 신청한 사람들</h2>
-      <% @posts.each do |p| %>  
-      <% if Friend.find_by(user_id: p.owner_id, post_id: current_user.id).nil? %>
-      친구신청 안했음
-      <% else %>
-      <%= link_to "#{p.name}", p %>은 친구신청 했음
+      <% @posts_not_mine.each do |p| %>  
+        <% if Friend.find_by(user_id: p.owner_id, post_id: current_user.id).nil? %>
+        <% else %>
+          <% if Friend.find_by(user_id: current_user.id, post_id: p.owner_id).nil? %>
+            <%= link_to "#{p.name}", p %>은 친구신청 했음
+          <% else %>
+            
+          <% end %>
+        <% end %>
       <% end %>
+    <hr>
+    <h2 id="existing_friends">친구목록</h2>
+      <% @posts_not_mine.each do |p| %>  
+        <% if Friend.find_by(user_id: p.owner_id, post_id: current_user.id).nil? %>
+        <% else %>
+          <% if Friend.find_by(user_id: current_user.id, post_id: p.owner_id).nil? %>
+          
+          <% else %>
+              <%= link_to "#{p.name}", p %>랑은 이미 친구임
+          <% end %>
+        <% end %>
       <% end %>
       
       
       <hr>
       <h2 id="recommended_friends">추천 친구</h2>
   <!--일단 지금은 전체 등록된 사용자를 보여주는 칸:친구신청 테스트-->
-      <% @posts.each do |p| %>  
-        <% if p.owner_id == current_user.id? %>
-          이건 내 라운지라서 안 보여야 하는데???
-        <%else%>
+      <% @posts_not_mine.each do |p| %>  
         <p><%= link_to "#{p.name}", p %>
           <% if Friend.find_by(user_id: current_user.id, post_id: p.owner_id).nil? %>
           <!--내가 이 포스트의 주인에게 친구신청을 한 적이 없는데,-->
@@ -43,7 +55,7 @@
                 <%= link_to "팔로우", friends_path(p.owner_id) %>
               <% else %>
               <!--이 포스트의 주인은 나한테 친구신청을 한 상태-->
-                <%= link_to "맞팔로우", friends_path(p.owner_id) %>
+                <%= link_to "친구수락", friends_path(p.owner_id) %>
               <%end%>
           <% else %>
           <!--내가 이 포스트의 주인에게 친구신청을 이미 했는데,-->
@@ -52,10 +64,9 @@
                 <%= link_to "팔로우취소", friends_path(p.owner_id) %>
               <% else %>
               <!--이 포스트의 주인도 이미 나한테 친구신청을 한 상태-->
-                <%= link_to "팔로우취소", friends_path(p.owner_id) %> 
+                <%= link_to "친구끊기", friends_path(p.owner_id) %> 
               <% end %>
           <% end %>
-        <% end %>
       <% end %>
       <hr>
       <table>

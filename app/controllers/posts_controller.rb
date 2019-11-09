@@ -6,8 +6,8 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
+    @posts_not_mine = Post.where.not(owner_id: current_user.id)
     @profile_check = Post.find_by(owner_id: current_user.id)
-
   end
 
   # GET /posts/1
