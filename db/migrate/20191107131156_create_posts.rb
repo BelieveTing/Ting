@@ -3,7 +3,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
     create_table :posts do |t|
       t.string :name
       t.datetime :dateofbirth
-      t.string :current_user_email
+      t.string :owner_id
       t.string :sex
       
       t.timestamps
