@@ -7,6 +7,7 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
     @posts_not_mine = Post.where.not(owner_id: current_user.id)
+    @posts_mine = Post.where(owner_id: current_user.id)
     @profile_check = Post.find_by(owner_id: current_user.id)
   end
 
@@ -71,6 +72,11 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def existing_friends
+    @posts = Post.all
+    @posts_not_mine = Post.where.not(owner_id: current_user.id)
   end
 
   private

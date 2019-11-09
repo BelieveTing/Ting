@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   get 'friends/become_friends/:id' => 'friends#become_friends', as: :friends
+  get 'posts/existing_friends/:id' => 'posts#existing_friends', as: :existing_friends
   
   resources :posts, :except => :create
   post 'posts/:id' => 'posts#create' , as: :create_posts
