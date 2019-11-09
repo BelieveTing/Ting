@@ -1,8 +1,8 @@
 class FriendsController < ApplicationController
     def become_friends
-        friend = Friend.find_by(user_email: current_user.email, post_owner_email: params[:id])
+        friend = Friend.find_by(user_id: current_user.id, post_id: params[:id])
         if friend.nil?
-            Friend.create(user_email: current_user.email, post_owner_email: params[:id])
+            Friend.create(user_id: current_user.id, post_id: params[:id])
         else
             friend.destroy
         end

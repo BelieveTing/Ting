@@ -6,7 +6,8 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
-    @profile_check = Post.find_by(post_owner_email: current_user.email)
+    @profile_check = Post.find_by(owner_id: current_user.id)
+
   end
 
   # GET /posts/1
@@ -34,7 +35,9 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-    @post.post_owner_email = params[:id]
+    @post.owner_id = params[:id]
+    # @post.save
+    # redirect_to '/'
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: '프로필이 성공적으로 등록됐습니다.' }
@@ -78,6 +81,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:name, :profile_picture, :dateofbirth, :post_owner_email, :sex)
+      params.require(:post).permit(:name, :profile_picture, :dateofbirth, :owner_email, :sex)
     end
 end
