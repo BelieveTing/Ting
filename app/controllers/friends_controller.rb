@@ -6,6 +6,6 @@ class FriendsController < ApplicationController
         else
             friend.destroy
         end
-        redirect_to request.referrer
+        redirect_to '/'
     end
 end
