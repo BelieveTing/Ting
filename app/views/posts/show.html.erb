@@ -16,6 +16,7 @@
 
 <p id="notice"><%= notice %></p>
 
+
 <strong>이름:</strong>
   <%= @post.name %><br/><br/>
 
@@ -49,5 +50,10 @@
 <button><%= link_to '수정', edit_post_path(@post) %></button>
 <button><%= link_to '뒤로가기', posts_path %></button>
 
+<% if @post.owner_id == current_user.id %>
+  <% render 'my_profile_page', post: @post %>
+<% else %>
+  <% render 'friend_lounge_page', post: @post %>
+<% end %>
 </body>
 

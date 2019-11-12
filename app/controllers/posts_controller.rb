@@ -6,7 +6,16 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
-    @profile_check = Post.find_by(current_user_email: current_user.id)
+    @posts_not_mine = Post.where.not(owner_id: current_user.id)
+    # @profile_check = current_user.posts
+    #이걸로 하면, nil 인데도 index에서 nil로 인식을 안함. 왜?
+    @profile_check = Post.find_by(owner_id: current_user.id)
+    # @my_friend_request = Post.users_ids.where(id: current_user.id)
+    # @my_friends = Post.where(post_id: Friend.where(post_id: current_user.id).select(:user_id), user_id: current_user.id)
+    @my_friends = Post.where(owner_id: Friend.where(user_id: Post.where(owner_id: current_user.post_ids).pluck(:owner_id), post_id: current_user.id).pluck(:user_id))
+    @my_requests = Post.where(owner_id: current_user.post_ids).where.not(id: @my_friends.pluck(:id))
+    @friend_requests = Post.where(owner_id: Friend.where(post_id: current_user.id).pluck(:user_id)).where.not(id: @my_friends.pluck(:id))
+    
   end
 
   # GET /posts/1
@@ -34,6 +43,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+
     @post.current_user_email = params[:id]
     @post.name = params[:name]
     @post.dateofbirth = params[:dateofbirth]
@@ -43,9 +53,8 @@ class PostsController < ApplicationController
     @post.job = params[:job]
     @post.workplace = params[:workplace]
     @post.height = params[:height]
-    
-    @post.save
-          
+    @post.owner_id = params[:id]
+
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: '프로필이 성공적으로 등록됐습니다.' }
@@ -84,11 +93,11 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.find_by(owner_id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:name, :profile_picture, :dateofbirth, :current_user_email, :sex)
+      params.require(:post).permit(:name, :profile_picture, :dateofbirth, :owner_email, :sex)
     end
 end
