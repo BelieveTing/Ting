@@ -43,9 +43,18 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+
+    @post.current_user_email = params[:id]
+    @post.name = params[:name]
+    @post.dateofbirth = params[:dateofbirth]
+    @post.content = params[:content]
+    @post.sex = params[:sex]
+    @post.home = params[:home]
+    @post.job = params[:job]
+    @post.workplace = params[:workplace]
+    @post.height = params[:height]
     @post.owner_id = params[:id]
-    # @post.save
-    # redirect_to '/'
+
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: '프로필이 성공적으로 등록됐습니다.' }

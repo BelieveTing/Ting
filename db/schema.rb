@@ -45,8 +45,13 @@ ActiveRecord::Schema.define(version: 2019_11_08_134926) do
   create_table "posts", force: :cascade do |t|
     t.string "name"
     t.datetime "dateofbirth"
+    t.text "content"
     t.string "owner_id"
     t.string "sex"
+    t.string "home"
+    t.string "job"
+    t.string "workplace"
+    t.integer "height"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
