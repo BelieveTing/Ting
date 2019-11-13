@@ -1,7 +1,11 @@
 <!--자기자신의 라운지-->
-      <p><%= current_user.email %>님의 라운지
-      <%= link_to "로그아웃", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" } %></p>
-
+      <% if user_signed_in? %>
+        <%= current_user.email %>님의 라운지
+        <%= link_to "로그아웃", destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to "로그인", new_user_session_path %>
+      <% end %>
+  
 <!--내 프로필 보여주는 부분 시작-->
       <% if @profile_check.nil? %>
         아직 프로필이 등록되지 않았어요! => <%= link_to "프로필 등록하러 가기", new_post_path %>

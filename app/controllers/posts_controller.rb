@@ -1,21 +1,8 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:show]
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :loundge]
-  after_action :save_my_previous_url, only: [:new, :show, :loundge]
-
+  before_action :authenticate_user!
 
   def index
     @posts = Post.all
-    @posts_not_mine = Post.where.not(owner_id: current_user.id)
-    # @profile_check = current_user.posts
-    #이걸로 하면, nil 인데도 index에서 nil로 인식을 안함. 왜?
-    @profile_check = Post.find_by(owner_id: current_user.id)
-    # @my_friend_request = Post.users_ids.where(id: current_user.id)
-    # @my_friends = Post.where(post_id: Friend.where(post_id: current_user.id).select(:user_id), user_id: current_user.id)
-    @my_friends = Post.where(owner_id: Friend.where(user_id: Post.where(owner_id: current_user.post_ids).pluck(:owner_id), post_id: current_user.id).pluck(:user_id))
-    @my_requests = Post.where(owner_id: current_user.post_ids).where.not(id: @my_friends.pluck(:id))
-    @friend_requests = Post.where(owner_id: Friend.where(post_id: current_user.id).pluck(:user_id)).where.not(id: @my_friends.pluck(:id))
-  
   end
 
   def show
