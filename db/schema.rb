@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_13_061227) do
+ActiveRecord::Schema.define(version: 2019_11_15_003913) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,16 +50,42 @@ ActiveRecord::Schema.define(version: 2019_11_13_061227) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "posts", force: :cascade do |t|
+  create_table "make_friends", force: :cascade do |t|
     t.string "name"
-    t.datetime "dateofbirth"
-    t.text "content"
-    t.string "owner_id"
     t.string "sex"
+    t.string "age"
     t.string "home"
     t.string "job"
     t.string "workplace"
     t.integer "height"
+    t.text "selfintroduction"
+    t.text "comment"
+    t.string "religion"
+    t.string "smoking"
+    t.integer "drink"
+    t.integer "mind"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "owner_id"
+    t.string "name"
+    t.string "sex"
+    t.string "age"
+    t.string "status"
+    t.string "home"
+    t.string "job"
+    t.string "workplace"
+    t.integer "height"
+    t.text "selfintroduction"
+    t.text "comment"
+    t.string "religion"
+    t.string "smoking"
+    t.integer "drink"
+    t.integer "mind"
+    t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

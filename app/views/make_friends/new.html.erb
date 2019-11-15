@@ -1,6 +1,6 @@
-<h1>프로필 등록</h1>
+<h1>솔로친구 프로필 등록</h1>
 
-<form action="/posts/create" method="POST">
+<form action="/make_friends/create" method="POST">
  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
 프로필 사진<br/><br/>
@@ -11,12 +11,6 @@
         <input type="radio" name="sex" value="여자"> 여자<br><br>
         
 나이 :  <input type ="number" min ="20" max ="100" step ="1" name="age"> <br/><br/>
-
-연애상태 : <select name="status">
-           <option value="솔로">솔로</option>
-           <option value="연애중">연애중</option>
-           <option value="유부">유부</option>
-           </select><br/><br/>
 
 거주지: <select name="home">
         <option value="서울">서울</option>
@@ -40,7 +34,7 @@
 
 키(cm): <input type="text" name="height"><br/><br/>
 
-간단소개 : <br/><textarea name="comment" cols="50" rows="5"  placeholder="간단한 자기소개 입력"></textarea><br/><br/>
+간단소개 : <br/><textarea name="comment" cols="50" rows="5"  placeholder="간단한 친구소개 입력"></textarea><br/><br/>
 
 종교 :  <select name="religion">
         <option value="기독교">기독교</option>
@@ -61,6 +55,3 @@
 
 <button type="submit">등록</button>    <button><%= link_to '뒤로가기', @back_url %></button>
 </form>
-
-
-    

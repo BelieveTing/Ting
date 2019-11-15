@@ -1,0 +1,2 @@
+class MakeFriend < ApplicationRecord
+end

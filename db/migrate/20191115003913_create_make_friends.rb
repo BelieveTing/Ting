@@ -1,11 +1,9 @@
-class CreatePosts < ActiveRecord::Migration[5.2]
+class CreateMakeFriends < ActiveRecord::Migration[5.2]
   def change
-    create_table :posts do |t|
-      t.string :owner_id
+    create_table :make_friends do |t|
       t.string :name
       t.string :sex
       t.string :age
-      t.string :status
       t.string :home
       t.string :job
       t.string :workplace
@@ -17,6 +15,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.integer :drink
       t.integer :mind
       t.string :phone
+      t.timestamps
       t.timestamps
     end
   end
