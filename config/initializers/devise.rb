@@ -3,6 +3,9 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"]
+  config.omniauth :facebook, ENV["Facebook_Key"], ENV["Facebook_Secret"]
+  config.omniauth :kakao, ENV["Kakao_Key"], :redirect_path => "/users/auth/kakao/callback"
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -297,7 +300,5 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
   
-  config.omniauth :facebook, ENV["Facebook_Key"], ENV["Facebook_Secret"]
-  config.omniauth :google_oauth2, ENV["Google_Key"], ENV["Google_Secret"]
-  config.omniauth :kakao, ENV["Kakao_Key"], :redirect_path => "/users/auth/kakao/callback"
+  
 end

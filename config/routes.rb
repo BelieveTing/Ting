@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   
-  devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks'}
   
+  get 'register/info1'
+  get 'register/info2'
   get 'friends/become_friends/:id' => 'friends#become_friends', as: :friends
   
-  resources :posts, :except => :create
+  resources :posts, :omniauth_callbacks, :except => :create
   post 'posts/:id' => 'posts#create' , as: :create_posts
-  devise_for :users
+  devise_for :users, :controllers => { omniauth_callbacks: "users/omniauth_callbacks" }
   devise_scope :user do
     authenticated :user do
       root 'posts#index', as: :authenticated_root

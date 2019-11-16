@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_08_134926) do
+ActiveRecord::Schema.define(version: 2019_11_16_112332) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 2019_11_08_134926) do
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
+  create_table "identities", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "provider"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "name"
     t.datetime "dateofbirth"
@@ -64,6 +73,8 @@ ActiveRecord::Schema.define(version: 2019_11_08_134926) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "profile_img"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
