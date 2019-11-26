@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'pagy'
+gem 'carrierwave'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'clipboard-rails'
@@ -78,6 +80,4 @@ end
 gem "omniauth-oauth2"
 
 gem "omniauth-google-oauth2"
-
-gem 'activestorage'
 

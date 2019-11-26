@@ -6,7 +6,6 @@ class PostsController < ApplicationController
   after_action :save_my_previous_url, only: [:new, :show, :loundge]
 
 
-
   def index
     @posts = Post.all
     @posts_not_mine = Post.where.not(owner_id: current_user.id)
@@ -17,12 +16,14 @@ class PostsController < ApplicationController
     # @my_friends = Post.where(post_id: Friend.where(post_id: current_user.id).select(:user_id), user_id: current_user.id)
     # @my_friends = Post.where(owner_id: Friend.where(user_id: Post.where(owner_id: current_user.post_ids).pluck(:owner_id), post_id: current_user.id).pluck(:user_id))
     @my_requests = Post.where(owner_id: Friend.where(user_id: current_user.id).pluck(:owner_id))
-    @my_friends = Post.where(owner_id: Friend.where(owner_id: current_user.id, user_id: @my_requests.pluck(:owner_id)).pluck(:user_id))
+    @friends = Post.where(owner_id: Friend.where(owner_id: current_user.id, user_id: @my_requests.pluck(:owner_id)).pluck(:user_id))
+    @pagy, @my_friends = pagy(@friends, items: 2)
     @my_requests_not_my_friends = @my_requests.where.not(id: @my_friends.pluck(:id))
     # Friend.where(user_id: current_user.owner_ids, owner_id: current_user.id).pluck(:user_id))
     @friend_requests = Post.where(owner_id: Friend.where(owner_id: current_user.id).pluck(:user_id)).where.not(id: @my_friends.pluck(:id))
     # @who_loves_my_friend = Heart.where()
     @love_request = Heart.where(host_id: current_user.id)
+   
   end
   
   
@@ -116,7 +117,7 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     # 여기서 허용된 params들만 갖고올 수 있도록. 
     def post_params
-      params.permit(:name, :image, :sex, :age, :status, :home, :job, :workplace, :height, :selfintroduction, :comment, :owner_id, :religion, :smoking, :drink, :mind, :phone)
+      params.permit(:name, :sex, :age, :status, :home, :job, :workplace, :height, :selfintroduction, :comment, :owner_id, :religion, :smoking, :drink, :mind, :phone)
     end
     
     def save_my_previous_url
