@@ -1,20 +1,72 @@
-<i id="notice"><%= notice %></i><br>
+<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top profileshownav" id="mainNav">
+    <div class="container">
+      <% if @post.owner_id.to_i == current_user.id %>
+        <a class="navbar-brand" href="/">  <img src="/img/icon/left_arrow.png" alt="" width="32px"> </a>
+      <% else %>
+        <a class="navbar-brand" href="<%=@back_url%>">  <img src="/img/icon/left_arrow.png" alt="" width="32px"> </a>
+      <% end %>
+      <span class="nav-link py-3 px-0 px-lg-3 rounded" id="profiletitlenav"><%= @post.name %>님의 프로필</span>
+    </div>
+  </nav>
 
-<%= @post.name %>님의 프로필<br/>
+  <header class="masthead bg-primary text-white text-center" id="profileshowheader">
+    <div class="container d-flex align-items-center flex-column">
 
-프로필 사진<br/><br/>
+      <!-- Masthead Avatar Image -->
 
-<strong>이름:</strong>
+      <% if @post.profilepics? %>
+        <%= image_tag(@post.profilepics.url, class:'profilepics', alt: '로드되지 않았습니다') %>
+      <% else %>
+        <img class="masthead-avatar mb-5" src="/img/avataaars.svg" alt="">
+      <% end %>
+
+      <!-- Masthead Heading -->
+      <h1 class="masthead-heading text-uppercase mb-0"><!--내 프로필 보여주는 부분 시작-->
+      <% if @post.owner_id.to_i == current_user.id %>
+        <% if @post.profilepics? %>
+          <br><a href="/posts/<%=@post.owner_id%>/edit_profilepics", method: "GET" , class="notice profilepics">사진 바꾸기</a>
+        <% else %>
+          <a href="/posts/<%=@post.owner_id%>/edit_profilepics", method: "GET", class="notice profilepics">프로필 사진을 등록하세요!</a>
+        <% end %>
+      <% else %>
+      <% end %>
+      </h1>
+            <!-- Icon Divider -->
+      <!--<div class="divider-custom divider-light">-->
+      <!--  <div class="divider-custom-line"></div>-->
+      <!--  <div class="divider-custom-icon">-->
+      <!--    <i class="fas fa-star"></i>-->
+      <!--  </div>-->
+      <!--  <div class="divider-custom-line"></div>-->
+      <!--</div>-->
+
+      <!-- Masthead Subheading -->
+      <!--<p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>-->
+
+    </div>
+  </header>
+</br></br>
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">프로필 정보</h2>
+
+      <!-- Icon Divider -->
+      <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="divider-custom-line"></div>
+      </div>
+
+      <!-- Contact Section Form -->
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+          <form name="sentMessage" id="contactForm" novalidate="novalidate">
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <strong>이름:</strong>
   <%= @post.name %><br/><br/>
-  
-<strong>프로필 사진</strong><br/>
-<% if @post.profilepics.attached? %>
-  <p>
-    <%= image_tag url_for(@post.profilepics) %>
-  </p>
-<% else %>
-  <p>이미지 없음</p>
-<% end %>
 
 <strong>성별:</strong>
   <%= @post.sex %><br/><br/>
@@ -47,11 +99,40 @@
   <%= @post.mind %><br/><br/>
 
 <% if @post.owner_id.to_i == current_user.id %>
+  <% if @post.profilepics? %>
     <button><%= link_to '수정', edit_post_path(@post) %></button>
-    <button><%= link_to '뒤로가기', '/' %></button>
+  <% else %>
+  <% end %>
 <% else %>
     <button> <a href="/posts/friend_loundge/<%=@post.owner_id%>", method: "GET">친구 라운지로 이동 </button>  
-  <button><%= link_to '뒤로가기', @back_url %></button>
 <% end %>
+                <!--<input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name.">-->
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<script>
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("mainNav").getElementsByClassName('navbar navbar-expand-lg bg-secondary text-uppercase fixed-top profileshownav').style.top = "0";
+  } else {
+    document.getElementById("mainNav").getElementsByClassName('navbar navbar-expand-lg bg-secondary text-uppercase fixed-top profileshownav').style.top = "-50px";
+  }
+  prevScrollpos = currentScrollPos;
+}
+</script>
+
+
+
 
 
