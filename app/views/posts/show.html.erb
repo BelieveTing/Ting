@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top profileshownav" id="mainNav">
     <div class="container">
       <% if @post.owner_id.to_i == current_user.id %>
-        <a class="navbar-brand" href="/">  <img src="/img/icon/left_arrow.png" alt="" width="32px"> </a>
+        <a class="navbar-brand" href="/">  <img src="/img/icon/left_arrow.png" alt="" width="32px">    믿고하는 소개팅 | 믿팅 </a>
       <% else %>
         <a class="navbar-brand" href="<%=@back_url%>">  <img src="/img/icon/left_arrow.png" alt="" width="32px"> </a>
       <% end %>
