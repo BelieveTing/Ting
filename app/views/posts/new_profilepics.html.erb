@@ -10,7 +10,7 @@
 <%= form_for @post, url: save_profilepics_path, method: "post" do |form| %>
   <div class="field">
     <%= form.label :profilepics %>
-    <%= form.file_field :profilepics %>
+    <%= form.file_field :profilepics, :required => true%>
   </div>
 
   <div class="actions">

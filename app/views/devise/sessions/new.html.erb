@@ -4,7 +4,7 @@
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
 					<div class="brand_logo_container" >
-						<img src="/img/love2.jpg" class="brand_logo" alt="Logo">
+						<img src="<%=asset_path 'love2.jpg'%>" class="brand_logo" alt="Logo">
 						</br></br>믿고 하는 지인 소개팅, <font size="7em">믿팅</font>
 					</div></br></br>
 				</div></br></br>
@@ -58,9 +58,16 @@
 				</div>
 
 			    <p style="text-align: center;">
-				<img src="/img/구글.PNG" style="width: 150px;">&nbsp</img><img src="/img/네이버.PNG" style="width: 150px;"></img>
+					<img onClick='showMessage()' src="<%=asset_path '구글.PNG'%>" style="width: 150px;height: 48px;">&nbsp</img>
+					<img onClick='showMessage()' src="<%=asset_path '네이버.PNG'%>" style="width: 150px;height: 48px;"></img>
 				</p>
 			</div>
 		</div>
 	</div>
+
+<script>
+  function showMessage(){
+				alert("서비스 준비 중입니다!");
+			}
+</script>
 </body>

@@ -43,7 +43,7 @@ Post.destroy_all
 post_1 = Post.create(name: "남자1호(모두에게호감신청함)", owner_id: "1", sex: "남자", selfintroduction: "안녕하세요", status: "솔로", age: '23', home: '서울')
 post_2 = Post.create(name: "남자2호(싱글)", owner_id: "3", sex: "남자", selfintroduction: "굿모닝하세요", status: "솔로", age: '23', home: '서울')
 post_3 = Post.create(name: "여자1호(싱글)", owner_id: "2", sex: "여자", selfintroduction: "굿나잇하세요", status: "솔로", age: '23', home: '경기남부')
-post_4 = Post.create(name: "여자2호(싱글아님)", owner_id: "4", sex: "여자", selfintroduction: "잘하세요", status: "연애중", age: '23', home: '서울')
+post_4 = C.create(name: "여자2호(싱글아님)", owner_id: "4", sex: "여자", selfintroduction: "잘하세요", status: "연애중", age: '23', home: '서울')
 post_5 = Post.create(name: "여자3호(싱글)", owner_id: "6", sex: "여자", selfintroduction: "잘 좀 하세요", status: "솔로", age: '23', home: '경기북부')
 post_6 = Post.create(name: "여자4호(싱글)", owner_id: "8", sex: "여자", selfintroduction: "안녕히계세요", status: "솔로", age: '23', home: '경상남도')
 post_7 = Post.create(name: "남자3호(싱글아님)", owner_id: "5", sex: "남자", selfintroduction: "저는보라카이갑니다", status: "연애중", age: '23', home: '서울')

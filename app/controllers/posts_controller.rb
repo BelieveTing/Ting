@@ -11,6 +11,8 @@ class PostsController < ApplicationController
     @posts = Post.all
     @posts_not_mine = Post.where.not(owner_id: current_user.id)
     @profile_check = Post.find_by(owner_id: current_user.id)
+    if @profile_check.nil?
+    else
     @my_requests = Post.where(owner_id: Friend.where(user_id: current_user.id).pluck(:owner_id))
     # @my_friends = Post.where(owner_id: Friend.where(owner_id: current_user.id, user_id: @my_requests.pluck(:owner_id)).pluck(:user_id))
     @my_friends = Post.where(owner_id: friend_list(current_user.id))
@@ -20,6 +22,7 @@ class PostsController < ApplicationController
     @love_request = Heart.where(host_id: current_user.id)
     @recommended_solos = Post.where(owner_id: friend_list(@my_friends.pluck(:owner_id))).where.not(sex: @current_user_post.sex).where(status: "솔로")
     @recommended_solos_not_my_friend = @recommended_solos.where.not(owner_id: @my_friends.pluck(:owner_id))
+    end
   end
   
   
