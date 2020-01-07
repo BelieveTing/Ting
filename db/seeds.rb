@@ -1,6 +1,3 @@
-# 기존 사용자 삭제 & 기존 좋아요 삭제
-User.destroy_all
-
 # 더미 사용자 생성
 # 애니로그인 10개만 보이는듯함
 user_1 = User.create(email: "1@1.com", password: "123123", password_confirmation: "123123")
