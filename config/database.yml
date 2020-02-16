@@ -21,5 +21,9 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: mysql2
+  database: believeting_production
+  username: admin
+  password: wjdvud12!
+  host: database-1.clyemwbigzgx.eu-central-1.rds.amazonaws.com
+  port: 3306

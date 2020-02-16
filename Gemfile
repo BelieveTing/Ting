@@ -9,8 +9,9 @@ gem 'clipboard-rails'
 gem "aws-sdk-s3", '~>1', require: false
 gem 'carrierwave'
 gem 'simple_form'
-gem 'mini_magick'
+# gem 'mini_magick'
 gem 'fog-aws'
+gem 'mysql2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record
