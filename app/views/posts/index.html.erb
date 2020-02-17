@@ -23,12 +23,7 @@
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#friends">친구목록</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <form action="/find_friend/result" method="GET" >
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <span class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"> 
-              <input type="text" name="search_word" size="15" required="true" minlength="2" placeholder="친구 이름으로 검색">
-              <button type="submit" >검색</button> </span>
-            </form>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/find_friend/search">새로운 친구 검색</a>
           </li>
         </ul>
       </div>

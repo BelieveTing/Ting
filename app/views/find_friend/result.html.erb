@@ -1,3 +1,14 @@
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top profileshownav" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="/">  <img src="/img/icon/left_arrow.png" alt="" width="32px"> </a>
+            <form class="col-10" action="/find_friend/result" style="width: 90%" method="GET" >
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <input type="text" name="search_word" style="width: 80%"required="true" minlength="2" value="<%=@search_word%>">
+              <button type="submit" >검색</button>
+            </form>
+    </div>
+</nav>
+
   <!--친구신청목록-->
 <section class="page-section portfolio" id="result" style="padding-top: 150px; padding-bottom: 30px;">
 
@@ -5,18 +16,18 @@
     <table>
      <tbody>
       <tr>
-        <td>  <h2 id="existing_friends"><%=@search_word %>로의 검색 결과(<%= @result.size %>명)</h2> </td>
+        <td>  <h2 id="existing_friends">"<%=@search_word %>" 검색 결과(<%= @result.size %>명)</h2> </td>
 
-        <td>
-          <div class="custom-control custom-switch" >
-          <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+        <!--<td>-->
+        <!--  <div class="custom-control custom-switch" >-->
+        <!--  <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>-->
           <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
           <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
           <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
           <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-          <label class="custom-control-label" for="customSwitch1">솔로친구만 보기</label>
-          </div>
-        </td>
+        <!--  <label class="custom-control-label" for="customSwitch1">솔로친구만 보기</label>-->
+        <!--  </div>-->
+        <!--</td>-->
       </tr>
      </tbody>
     </table>
@@ -59,7 +70,7 @@
     <!--친구데이터-->
     <% if @result.exists?%>
       <% @result.each do |p| %>
-        <div class="portfolio-modal modal fade" id="friend<%=p.owner_id%>" tabindex="-1" role="dialog" aria-labelledby="friend<%=p.owner_id%>Label" aria-hidden="true">
+        <div class="portfolio-modal modal fade" id="result<%=p.owner_id%>" tabindex="-1" role="dialog" aria-labelledby="result<%=p.owner_id%>Label" aria-hidden="true">
           <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -72,32 +83,43 @@
                   <div class="row justify-content-center">
                     <div class="col-lg-8">
                       <!-- Portfolio Modal - Title -->
-                      <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"><%=p.name%>님</h2>
-                      <!-- Icon Divider -->
-                      <div class="divider-custom">
-                        <div class="divider-custom-line"></div>
-                        <div class="divider-custom-icon">
-                          <i class="fas fa-star"></i>
-                        </div>
-                        <div class="divider-custom-line"></div>
-                      </div>
+                      <h2 class="portfolio-modal-title text-secondary text-uppercase mb-3"><%=p.name%>님</h2>
                       <!-- Portfolio Modal - Image -->
                       <!--<img class="img-fluid rounded mb-5" src="img/portfolio/cabin.png" alt="">-->
                       <% if p.profilepics? %>
-                        <%= image_tag(p.profilepics.url,  class:'img-fluid rounded mb-5 profilepics', alt: "") %>
+                        <%= image_tag(p.profilepics.url,  class:'img-fluid rounded mb-3 profilepics', alt: "") %>
                       <% else %>
-                        <img class="img-fluid rounded mb-5 profilepics" src="img/avataaars.svg" alt="">
+                        <img class="img-fluid rounded mb-3 profilepics" src="img/avataaars.svg" alt="">
                       <% end %>
                       <!-- Portfolio Modal - Text -->
-                      <p class="mb-5">저는 <%=p.age%>살 <%=p.name%>이라고 합니다.</p>
-                      <p class="mb-5"><%=p.selfintroduction%></p>
-                                     <button class="btn btn-warning" onclick="location.href='/posts/<%=p.owner_id%>' ">
+                      <p class="mb-1">저는 <%=p.age%>살 <%=p.name%>이라고 합니다.</p>
+                      <p class="mb-3"><%=p.selfintroduction%></p>
+                    <button class="btn btn-warning" onclick="location.href='/posts/<%=p.owner_id%>' ">
                       <i class="fa fa-user" aria-hidden="true"></i>
-                      상세 프로필 보기</button>
-                      <button class="btn btn-primary" href="#" data-dismiss="modal">
-                        <i class="fas fa-times fa-fw"></i>
-                        프로필 닫기
-                      </button>
+                      상세 프로필 보기
+                    </button>
+                    <% if Friend.find_by(user_id: p.owner_id, owner_id: current_user.id).nil?
+                        if Friend.find_by(user_id: current_user.id, owner_id: p.owner_id).nil?
+                          @buttonmsg = "친구신청"
+                          @msg = Post.find_by(owner_id: p.owner_id).name+"님에게 친구 신청하시겠습니까?"
+                        else
+                          @buttonmsg = "친구신청취소"
+                          @msg = Post.find_by(owner_id: p.owner_id).name+"님에게 친구 신청을 취소하시겠습니까?"
+                        end
+                      else
+                          if Friend.find_by(user_id: current_user.id, owner_id: p.owner_id).nil?
+                          @buttonmsg = "친구수락"
+                          @msg = Post.find_by(owner_id: p.owner_id).name+"님과 친구를 맺으시겠습니까?"
+                        else
+                          @buttonmsg = "친구끊기"
+                          @msg = Post.find_by(owner_id: p.owner_id).name+"님과 친구를 끊겠습니까?"
+                        end
+                      end%>
+                    <button class="btn btn-success" onclick= "location.href='/friends/become_friends/<%=p.owner_id%>';return confirm('<%=@msg%>')">
+                      <i class="fas fa-plus"></i>
+                      <%=@buttonmsg%>
+                    </button>
+
                     </div>
                   </div>
                 </div>

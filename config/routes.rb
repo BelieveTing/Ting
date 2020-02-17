@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "posts/:id/edit_profilepics" => 'posts#edit_profilepics', as: :edit_profilepics
   post "posts/:id/update_profilepics" => 'posts#update_profilepics', as: :update_profilepics
   get 'find_friend/result' => 'find_friend#result'
+  get 'find_friend/search' => 'find_friend#search'
   get 'posts/:id/my_friend_list'=> 'posts#my_friend_list'
   get 'posts/friend_loundge/:host_id/:lover_id' => 'hearts#toggle_heart', as: :hearts
   get 'posts/:lover_id/toggle_heart2' => 'hearts#toggle_heart2'
