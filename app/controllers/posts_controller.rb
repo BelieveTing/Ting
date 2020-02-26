@@ -46,9 +46,9 @@ class PostsController < ApplicationController
   
   def my_friend_list 
         @my_friends = Post.where(owner_id: friend_list(current_user.id))
-            @my_requests = Post.where(owner_id: Friend.where(user_id: current_user.id).pluck(:owner_id))
-            @my_requests_not_my_friends = @my_requests.where.not(id: @my_friends.pluck(:id))
-                @friend_requests = Post.where(owner_id: Friend.where(owner_id: current_user.id).pluck(:user_id)).where.not(id: @my_friends.pluck(:id))
+          @friend_requests = Post.where(owner_id: Friend.where(owner_id: current_user.id).pluck(:user_id)).where.not(id: @my_friends.pluck(:id))
+        @my_requests = Post.where(owner_id: Friend.where(user_id: current_user.id).pluck(:owner_id))
+          @my_requests_not_my_friends = @my_requests.where.not(id: @my_friends.pluck(:id))
   end
 
   def lovers
@@ -132,6 +132,7 @@ class PostsController < ApplicationController
   end
 
   def update_profilepics
+    # URI.parse(URI.encode(url))
     @post = Post.find_by(owner_id: params[:id]).update(params.require(:post).permit(:profilepics))
     redirect_to params[:url].to_s
   end

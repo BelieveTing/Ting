@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.6.3'
 
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
@@ -11,6 +11,7 @@ gem 'carrierwave'
 gem 'simple_form'
 # gem 'mini_magick'
 gem 'fog-aws'
+gem 'figaro'
 gem 'mysql2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'

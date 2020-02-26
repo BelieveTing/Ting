@@ -1,4 +1,4 @@
-<body>
+	<body>
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
@@ -60,6 +60,10 @@
 			    <p style="text-align: center;">
 					<img onClick='showMessage()' src="<%=asset_path '구글.PNG'%>" style="width: 150px;height: 48px;">&nbsp</img>
 					<img onClick='showMessage()' src="<%=asset_path '네이버.PNG'%>" style="width: 150px;height: 48px;"></img>
+				</p>
+				<p style="text-align: right">
+					현재 가입자 : <%= "#{User.count} 명" %> &nbsp&nbsp / 
+					소개 신청건수 : <%= "#{Heart.count} 명" %> &nbsp&nbsp
 				</p>
 			</div>
 		</div>
