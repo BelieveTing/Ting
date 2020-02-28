@@ -19,8 +19,114 @@
       </div>
     </div>
   </nav>
+<!--현재 친구 목록-->
+<section class="page-section portfolio" id="my_friends" style="padding-top: 150px; padding-bottom: 30px;">
 
-  <!--친구신청목록-->
+    <div class="container">
+    <h2 class="text-center">친구 목록 (<%= @my_friends.size %>명)</h2> 
+
+        <!--<td>-->
+        <!--  <div class="custom-control custom-switch" >-->
+        <!--  <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>-->
+        <!--  <label class="custom-control-label" for="customSwitch1">솔로친구만 보기</label>-->
+        <!--  </div>-->
+        <!--</td>-->
+    <br><br>
+
+      <!-- Portfolio Grid Items -->
+      <div class="row"  style="text-align: center;">
+
+        <!-- Portfolio Item 1 -->
+        <% if @my_friends.exists?%>
+          <% @my_friends.each do |p| %>  
+          <div class="card col-10 mb-2 text-left" style="max-width: 450px; margin-left: auto; margin-right: auto; display: block;">
+            <div class="row no-gutters">
+              <div class="col-4" style="display: block; padding: 5px;margin-top: auto; margin-bottom: auto; margin-left: auto; margin-right: auto;">
+                <% if p.profilepics? %>
+                  <%= image_tag(p.profilepics.url, class:'img-fluid card-img profilepics1', alt: "") %>
+                <% else %>
+                  <img class="img-fluid card-img profilepics1" src="/img/avataaars.svg" alt="">
+                <% end %>
+              </div>
+              <div class="col-8">
+                <div class="card-body">
+                    
+                  <h5 class="card-title "> <%= p.name%>(<%=p.age%>)</h5>
+                  <p class="card-text"><%=p.selfintroduction%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-danger" onclick="location.href='javascript:;'" id="kakao-link-btn"> 
+              <!-- 버튼이 생기는 부분, id는 맘대로 쓰시되 아래 js 코드도 동일하게 적용해주셔야 합니다. -->
+                          <i class="fa fa-heart" aria-hidden="true"></i><br>카톡으로 소개
+              </button>
+              <!-- 톡 이미지 부분이고, 전 kakaolink_btn_small.png로 불러왔습니다.   -->
+              <script type="text/javascript">
+                //<![CDATA[
+                  // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+                  Kakao.init('876873607d3097bc1ceb1bea1bb484eb');
+                  // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+                  Kakao.Link.createDefaultButton({
+                    container: '#kakao-link-btn',  // 컨테이너는 아까 위에 버튼이 쓰여진 부분 id 
+                    objectType: 'feed',
+                    content: {  // 여기부터 실제 내용이 들어갑니다. 
+                      title: '<%=p.name%>님을 소개합니다', // 본문 제목
+                      description: '#<%=p.age%> #<%=p.home%> #<%p.job%> #믿고하는 #소개팅 #믿팅',  // 본문 바로 아래 들어가는 영역?
+                      imageUrl:  
+                      <% if p.profilepics? %>
+                        '<%= image_tag(p.profilepics.url, class:'img-fluid card-img profilepics1', alt: "") %>'
+                      <% else %>
+                        'https://412a9714523746cb9aace4edd996b48c.vfs.cloud9.eu-central-1.amazonaws.com/img/avataaars.svg'
+                      <% end %>,
+                      
+                      // 이미지
+                      link: {
+                        mobileWebUrl: 'http://believe-ting.com/posts/<%=p.owner_id%>',
+                        webUrl: 'http://believe-ting.com/posts/<%=p.owner_id%>'
+                      }
+                    },
+                    social: {  /* 공유하면 소셜 정보도 같이 줄 수 있는데, 이 부분은 기반 서비스마다 적용이 쉬울수도 어려울 수도 있을듯 합니다. 전 연구해보고 안되면 제거할 예정 (망할 google  blogger...) */
+                      likeCount: 286,
+                      commentCount: 45,
+                      sharedCount: 845
+                    },
+                    buttons: [
+                      {
+                        title: '프로필 보러 가기',
+                        link: {
+                          mobileWebUrl: 'http://believe-ting.com/posts/<%=p.owner_id%>',
+                          webUrl: 'http://believe-ting.com/posts/<%=p.owner_id%>'
+                        }
+                      },
+                      {
+                        title: '믿팅으로 이동',
+                        link: {
+                          mobileWebUrl: 'http://believe-ting.com',
+                          webUrl: 'http://believe-ting.com'
+                        }
+                      }
+                    ]
+                  });
+                //]]>
+              </script>
+          </div>  
+          <br>
+          <% end %>
+        <% else %>
+          아직 친구 신청이 없네요! 친구신청을 해볼까요?
+        <% end %>
+    
+      </div>
+      <!-- /.row -->
+
+    </div>
+</section>
+
+
+<!--현재 친구 목록 끝-->
+<!--친구신청목록-->
 <section class="page-section portfolio" id="my_requests_not_my_friends" style="padding-top: 150px; padding-bottom: 30px;">
 
     <div class="container">
@@ -63,10 +169,10 @@
               </div>
             </div>
           </div>
-          
+          <br>
           <% end %>
         <% else %>
-          아직 친구가 없네요! 친구신청을 해볼까요?
+          아직 친구 신청이 없네요! 친구신청을 해볼까요?
         <% end %>
     
       </div>
@@ -74,7 +180,7 @@
 
     </div>
 </section>
-  <!--친구신청목록끝-->
+<!--친구신청목록끝-->
   
   
     <!--나에게 들어온 친구 신청목록-->
