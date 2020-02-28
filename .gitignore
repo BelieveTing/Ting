@@ -29,7 +29,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/Config/application.yml
+/config/application.yml
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
